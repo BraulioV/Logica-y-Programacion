@@ -1,7 +1,7 @@
-# Logica-y-Programacion
+# Lógica y Programación
 Prácticas de la asignatura de Lógica y Programación del curso 2015-2016
 
-En este repositorio hay una serie de ejericicios para la entrega de prácticas de la asignatura de ***Lógica y Programación*** de la Universidad de Granada.
+En este repositorio hay una serie de ejericicios para la entrega de prácticas de la asignatura de ***Lógica y Programación*** de la Universidad de Granada, programadas en ***Haskell***.
 
 En el ejercicio 1, tenemos los siguientes ejercicios:
   1. Definir el tipo de dato *Conjunto* y el mayor número de operaciones posibles
