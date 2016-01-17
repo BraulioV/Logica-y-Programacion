@@ -37,3 +37,4 @@ xeuclides_red a b u0 u1 v0 v1 = takeWhile ((a `mod` b) > 0) [q,b,m,u0',u1',v0',v
         u1' = u0 - (q * u1)
         v0' = v1
         v1' = v0 - (q * v1) 
+-- dice olmedo que esto esta mal
