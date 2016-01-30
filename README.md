@@ -15,10 +15,10 @@ En el ejercicio 1, tenemos los siguientes ejercicios:
   8. Implementar la resolución de un sistema de congruencias para números enteros.
 
 ## Ejercicio 2
-El ejercicio 2 incluye por un lado `TorresHanoi.hs`:
+El ejercicio 2 incluye por un lado __TorresHanoi.hs__:
 
-- Una función llamada `pasosTorresHanoi`, que a partir de un entero que el usuario introducirá por teclado, nos da la resolución de la torre para dicho número de pisos.
+- Una función llamada __pasosTorresHanoi__, que a partir de un entero que el usuario introducirá por teclado, nos da la resolución de la torre para dicho número de pisos.
 
-- Una función llamada `pasosTorresHanoi.txt`, que guardará la salida de la función anterior en un fichero.
+- Una función llamada __pasosTorresHanoi.txt__, que guardará la salida de la función anterior en un fichero.
 
-por otro lado, un módulo llamado `TorresHanoiMenu.hs` que al ejecutar su función main, en primer lugar nos pedirá introducir un entero positivo mayor que cero y después nos pedirá si queremos resolver la torre por pantalla o en un fichero.
+por otro lado, un módulo llamado __TorresHanoiMenu.hs__ que al ejecutar su función main, en primer lugar nos pedirá introducir un entero positivo mayor que cero y después nos pedirá si queremos resolver la torre por pantalla o en un fichero.
