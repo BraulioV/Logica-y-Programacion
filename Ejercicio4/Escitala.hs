@@ -1,6 +1,6 @@
 module Escitala (module Escitala) where 
     
-    import Data.Matrix
+    import Data.Matrix      -- install with cabal install matrix
     import Data.Vector
     import Data.List
 
