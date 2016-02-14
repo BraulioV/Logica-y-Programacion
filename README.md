@@ -17,8 +17,11 @@ En el ejercicio 1, tenemos los siguientes ejercicios:
 ## Ejercicio 2
 El ejercicio 2 incluye por un lado __TorresHanoi.hs__:
 
-- Una función llamada __pasosTorresHanoi__, que a partir de un entero que el usuario introducirá por teclado, nos da la resolución de la torre para dicho número de pisos.
+- Una función llamada __pasosTorresHanoi__, que a partir de un entero que el usuario introducirá, nos da la resolución de la torre para dicho número de pisos.
 
-- Una función llamada __pasosTorresHanoi.txt__, que guardará la salida de la función anterior en un fichero.
+- Una función llamada __pasosTorresHanoitxt__, que guardará la salida de la función anterior en un fichero.
 
 por otro lado, un módulo llamado __TorresHanoiMenu.hs__ que al ejecutar su función main, en primer lugar nos pedirá introducir un entero positivo mayor que cero y después nos pedirá si queremos resolver la torre por pantalla o en un fichero.
+
+## Ejercicio 4
+El ejercicio 4 consiste en hacer un pequeño proyecto propio, en este caso el __Cifrado de Übchi__ ([Wikipedia](https://en.wikipedia.org/wiki/Transposition_cipher, "Wikipedia")). También incluye la implementación de una __Escítala__ ([Wikipedia](https://es.wikipedia.org/wiki/Esc%C3%ADtala, "Wikipedia"))
