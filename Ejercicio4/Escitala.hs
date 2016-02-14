@@ -10,7 +10,7 @@ module Escitala (cifrar, descifrar) where
         | otherwise = cifrarAux (Data.Matrix.fromList (a+1) n (addWhiteSpaces texto b)) n ""
             where
                 a = (Prelude.length texto) `div` n
-                b = (n*(a+1)) - (Prelude.length texto)
+                b = (Prelude.length texto) `mod` n
 
     descifrar :: String -> Int -> String
     descifrar texto n = dropWhileEnd (== ' ') (cifrarAux (Data.Matrix.fromList n a texto) a "")
