@@ -1,4 +1,4 @@
-module Escitala (module Escitala) where 
+module Escitala (cifrar, descifrar) where 
     
     import Data.Matrix      -- install with cabal install matrix
     import Data.Vector
