@@ -1,4 +1,4 @@
-module Cifrado (module Cifrado) where
+module Cifrado (cifrar) where
 
     import Data.Matrix      -- install with cabal install Matrix
     import Data.Vector
