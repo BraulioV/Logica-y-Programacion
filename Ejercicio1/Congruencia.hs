@@ -35,7 +35,7 @@ module Congruencia (module Congruencia) where
 
     -- para poder mostrar una congruencia, debemos incluirla en la clase Show
     instance Show a => Show (Congruencia a) where
-        showsPrec _ (Congruencia x y m) = shows x.showString " = ".shows y.showString " (mod ".shows m.showChar ')'
+        showsPrec _ (Congruencia x y m) = shows x.showString " := ".shows y.showString " (mod ".shows m.showChar ')'
 
     -- definimos la normalizacion de una congruencia
     {-
