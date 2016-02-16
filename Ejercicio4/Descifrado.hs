@@ -33,8 +33,23 @@ module Descifrado (descifrar) where
     shuffle m l = reverse' (shuffleAux m l [])
         where
             shuffleAux :: [[Char]] -> [Int] -> [[Char]] -> [[Char]]
-            shuffleAux _ [] r     = r
-            shuffleAux m (l:ls) r = shuffleAux m ls ((m !! (l-1)):r)
+            shuffleAux m ls r 
+                | Prelude.length m == Prelude.length r = r
+                | otherwise                            = shuffleAux m lst ((m !! i):r)
+                    where
+                        i   = Descifrado.elemIndex min ls
+                        min = Prelude.minimum ls
+                        max = Prelude.maximum ls
+                        lst = Prelude.map (\x -> if x == min then x+max else x) ls
+
+    elemIndex :: Int -> [Int] -> Int
+    elemIndex x xs  = elemIndexAux x xs 0
+        where
+            elemIndexAux :: Int -> [Int] -> Int -> Int
+            elemIndexAux _ [] _  = error "La lista vacia no tiene elementos"
+            elemIndexAux x (y:xs) n
+                | x == y    = n
+                | otherwise = elemIndexAux x xs (n+1)
     
     reverse' :: [a] -> [a]
     reverse' xs = reverseAux xs []
@@ -59,8 +74,8 @@ module Descifrado (descifrar) where
         | Prelude.length xs < n = xs
         | otherwise = (Prelude.take (n-1) xs) Prelude.++ [y] Prelude.++ (Prelude.drop (n-1) xs)
 
-    descifrar :: [String] -> [Int] -> String
-    descifrar texto clave = fase4
+    descifrar :: [String] -> [Int] -> [Bool]
+    descifrar texto clave = fase1_5
         where
             fase1   = partirMasResto (unirStrings texto) (Prelude.length clave)
             fase1_5 = columnasConEspacios (toLista fase1)
