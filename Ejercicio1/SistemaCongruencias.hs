@@ -5,7 +5,7 @@ module SistemaCongruencias (module SistemaCongruencias) where
     class SistemasConNormalizacion b where
         normSistema :: b -> b
 {-
-    data Sistema a = Sistema (Congruencia (Int, Int, Int), Congruencia (Int, Int, Int))
+    Sistema (Congruencia x y m) (Congruencia x' y' m')
 -}
     data Sistema a = Sistema
         { ecuacion1 :: Congruencia a 
