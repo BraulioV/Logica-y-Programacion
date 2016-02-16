@@ -27,11 +27,15 @@ module Congruencia (module Congruencia) where
         norm :: b -> b
 
     -- definimos el tipo de dato Congruencia
-    data Congruencia a = Congruencia (Int, Int, Int)
+    data Congruencia a = Congruencia 
+        { a :: Int
+        , b :: Int
+        , modul :: Int
+        }
 
     -- para poder mostrar una congruencia, debemos incluirla en la clase Show
     instance Show a => Show (Congruencia a) where
-        showsPrec _ (Congruencia (x,y,m)) = shows x.showString " = ".shows y.showString " (mod ".shows m.showChar ')'
+        showsPrec _ (Congruencia x y m) = shows x.showString " = ".shows y.showString " (mod ".shows m.showChar ')'
 
     -- definimos la normalizacion de una congruencia
     {-
@@ -47,10 +51,10 @@ module Congruencia (module Congruencia) where
         x    = 39 (mod 98)
     -}
     instance Integral a => TiposConNormalizacion (Congruencia a) where
-        norm (Congruencia(x,y,m))
+        norm (Congruencia x y m)
             | y `mod` d /= 0 = error "Congruencia sin solucion"
-            | m < 1          = norm (Congruencia (x,y,(signum m)*m))
-            | otherwise      = Congruencia (1, e, f)
+            | m < 1          = norm (Congruencia x y ((signum m)*m))
+            | otherwise      = Congruencia 1 e f
             where
                 (d,s,_) = xeuclides x m
                 h = y `div` d
@@ -59,7 +63,7 @@ module Congruencia (module Congruencia) where
 
     -- definimos la igualdad de congruencias
     instance (Eq a, Num a) => Eq (Congruencia a) where
-        (Congruencia (a,b,m)) == (Congruencia (a',b',m')) = (c == c') && (d == d') && (e == e')
+        (Congruencia a b m) == (Congruencia a' b' m') = (c == c') && (d == d') && (e == e')
             where
-                Congruencia (c,d,e)     = norm (Congruencia (a,b,m))
-                Congruencia (c',d',e')  = norm (Congruencia (a',b',m'))
+                Congruencia c d e     = norm (Congruencia a b m)
+                Congruencia c' d' e'  = norm (Congruencia a' b' m')
