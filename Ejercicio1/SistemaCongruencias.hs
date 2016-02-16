@@ -8,8 +8,8 @@ module SistemaCongruencias (module SistemaCongruencias) where
     data Sistema a = Sistema (Congruencia (Int, Int, Int), Congruencia (Int, Int, Int))
 -}
     data Sistema a = Sistema
-        { ecuacion1 :: Congruencia (a, a, a)
-        , ecuacion2 :: Congruencia (a, a, a)
+        { ecuacion1 :: Congruencia a 
+        , ecuacion2 :: Congruencia a 
         } deriving(Show)
 
     --instance (Integral a, Integral b) => SistemasConNormalizacion (Sistema(Congruencia x, Congruencia z)) where
