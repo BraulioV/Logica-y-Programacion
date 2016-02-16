@@ -12,9 +12,9 @@ module SistemaCongruencias (module SistemaCongruencias) where
         , ecuacion2 :: Congruencia a 
         } deriving(Show)
 
-    instance (Integral a, Integral b) => SistemasConNormalizacion (Sistema(Congruencia x Congruencia z)) where
+    instance (Integral a) => SistemasConNormalizacion (Sistema a) where
         normSistema (Sistema (Congruencia a1 a2 a3) (Congruencia b1 b2 b3))
-         | d /= 1    = error "Sistema sin solucion"
-         | otherwise = (Sistema (norm (Congruencia a1 a2 a3)) (norm (Congruencia b1 b2 b3))
+            | d /= 1    = error "Sistema sin solucion"
+            | otherwise = Sistema (norm (Congruencia a1 a2 a3)) (norm (Congruencia b1 b2 b3))
             where 
-              (d,s,_)= xeuclides a3 b3
+                (d,s,_) = xeuclides a3 b3
