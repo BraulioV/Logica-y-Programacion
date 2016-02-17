@@ -10,24 +10,32 @@ module LogicaProposicional (module LogicaProposicional) where
             Np      ¬p          not
             Cpq     p -> q      ANpq    p->q = (¬p v q)
             Kpq     p ^  q      &&
-            Apq     p v q       ||
+            Opq     p v q       ||
             Epq     p <-> q     (p->q)^(q->p)
     ------------------------------------------------------------}
+    infix 9 `n`
+    infix 3 `k`
+    infix 2 `o`
+    infix 2 `c`
 
     data Logic a = Logic
-        {
-            valor :: Bool
-        } deriving (Show)
+        {valor :: Bool
+        }      | Logic a `C` Logic a
 
-    infix 9 ¬
-    (¬) :: (Logic a) -> (Logic a)
-    (¬) a = Logic (not (valor a))
+        deriving (Show)
 
-    infix 7 ^
-    (^) :: (Logic a) -> (Logic a) -> (Logic a)
-    (^) a b = Logic ((valor a) && (valor b))
+    
+    n :: (Logic a) -> (Logic a)
+    n a = Logic (not (valor a))
 
-    --infix 7 :>
+    k :: (Logic a) -> (Logic a) -> (Logic a)
+    p `k` q = Logic ((valor p) && (valor q))
+
+    o :: (Logic a) -> (Logic a) -> (Logic a)
+    p `o` q = Logic ((valor p) || (valor q))
+
+    c :: (Logic a) -> (Logic a) -> (Logic a)
+    p `c` q = (n p) `o` q
 
     --infix :|
     --infix :<->:
