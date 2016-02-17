@@ -19,13 +19,11 @@ module LogicaProposicional (module LogicaProposicional) where
     infix 2 `c`
     infix 2 `e`
 
-
     data Logic a = Logic
         {valor :: Bool
         }      | Logic a `C` Logic a
 
         deriving (Show)
-
     
     n :: (Logic a) -> (Logic a)
     n a = Logic (not (valor a))
@@ -42,3 +40,4 @@ module LogicaProposicional (module LogicaProposicional) where
     e :: (Logic a) -> (Logic a) -> (Logic a)
     p `e` q = (p `c` q) `k` (q `c` p)
 
+    
