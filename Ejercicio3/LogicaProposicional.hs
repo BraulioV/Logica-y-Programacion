@@ -19,15 +19,6 @@ module LogicaProposicional (module LogicaProposicional) where
             valor :: Bool
         } deriving (Show)
 
-    infix 9 ¬
-    (¬) :: (Logic a) -> (Logic a)
-    (¬) a = Logic (not (valor a))
-
-    infix 7 ^
-    (^) :: (Logic a) -> (Logic a) -> (Logic a)
-    (^) a b = Logic ((valor a) && (valor b))
-
-    --infix 7 :>
-
-    --infix :|
-    --infix :<->:
+    infixl 9 `n`
+    n :: (Logic a) -> (Logic a)
+    n a = Logic (not (valor a))
