@@ -21,7 +21,12 @@ El ejercicio 2 incluye por un lado __TorresHanoi.hs__:
 
 - Una función llamada __pasosTorresHanoitxt__, que guardará la salida de la función anterior en un fichero.
 
-por otro lado, un módulo llamado __TorresHanoiMenu.hs__ que al ejecutar su función main, en primer lugar nos pedirá introducir un entero positivo mayor que cero y después nos pedirá si queremos resolver la torre por pantalla o en un fichero.
+por otro lado, un módulo llamado __Menu.hs__ que al ejecutar su función main, en primer lugar nos pedirá introducir un entero positivo mayor que cero y después nos pedirá si queremos resolver la torre por pantalla o en un fichero.
+
+## Ejercicio 3
+Implementación de los procedimientos elementales de la lógica proporsional: tablas de verdad de fórmulas, normas normales conjuntiva y disyuntiva e implicación semántica. 
+
+Para ello, se definirá el tipo de dato `Formula` que incluirá funciones para obtener su tabla de verdad, para generar la forma normal conjuntiva o disyuntiva y para saber si un conjunto de funciones es tautología.
 
 ## Ejercicio 4
 El ejercicio 4 consiste en hacer un pequeño proyecto propio, en este caso el __Cifrado de Übchi__ ([Wikipedia](https://en.wikipedia.org/wiki/Transposition_cipher, "Wikipedia")). También incluye la implementación de una __Escítala__ ([Wikipedia](https://es.wikipedia.org/wiki/Esc%C3%ADtala, "Wikipedia"))
