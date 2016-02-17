@@ -20,4 +20,7 @@ module LogicaProposicional (module LogicaProposicional) where
     infix :|
     infix :<->:
 
-    
+    data Logic a = Logic
+        {
+            valor :: Bool
+        }
