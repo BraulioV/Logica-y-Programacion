@@ -1,4 +1,4 @@
-module TorresHanoi (module TorresHanoi) where
+module TorresHanoi (pasosTorresHanoi, pasosTorresHanoi_txt) where
 
     import System.IO
     import Data.Char
