@@ -14,13 +14,18 @@ module LogicaProposicional (module LogicaProposicional) where
             Epq     p <-> q     (p->q)^(q->p)
     ------------------------------------------------------------}
 
-    infix 7 ¬
-    infix 7 :>
-    infix :^
-    infix :|
-    infix :<->:
-
     data Logic a = Logic
         {
             valor :: Bool
-        }
+        } deriving (Show)
+
+    infix 9 ¬
+    (¬) :: (Logic a) -> (Logic a)
+    (¬) a = Logic (not (valor a))
+
+
+
+    --infix 7 :>
+    --infix :^
+    --infix :|
+    --infix :<->:
