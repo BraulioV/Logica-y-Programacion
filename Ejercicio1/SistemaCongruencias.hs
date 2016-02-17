@@ -19,7 +19,7 @@ module SistemaCongruencias (module SistemaCongruencias) where
             where 
                 (d,s,_) = xeuclides a3 b3
 
-
+    --                         Sistema valor inf valor sup intervalo solucion
     solve :: (Integral a) => (Sistema a) -> Int -> Int -> (Int, Int)
     solve sistema lim_inf lim_sup = (li, lsup)
         where
