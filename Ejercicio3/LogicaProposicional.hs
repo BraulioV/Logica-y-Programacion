@@ -42,5 +42,3 @@ module LogicaProposicional (module LogicaProposicional) where
     e :: (Logic a) -> (Logic a) -> (Logic a)
     p `e` q = (p `c` q) `k` (q `c` p)
 
-    --infix :|
-    --infix :<->:
