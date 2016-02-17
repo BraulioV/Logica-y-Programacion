@@ -17,6 +17,8 @@ module LogicaProposicional (module LogicaProposicional) where
     infix 3 `k`
     infix 2 `o`
     infix 2 `c`
+    infix 2 `e`
+
 
     data Logic a = Logic
         {valor :: Bool
@@ -36,6 +38,9 @@ module LogicaProposicional (module LogicaProposicional) where
 
     c :: (Logic a) -> (Logic a) -> (Logic a)
     p `c` q = (n p) `o` q
+
+    e :: (Logic a) -> (Logic a) -> (Logic a)
+    p `e` q = (p `c` q) `k` (q `c` p)
 
     --infix :|
     --infix :<->:
