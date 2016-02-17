@@ -23,9 +23,11 @@ module LogicaProposicional (module LogicaProposicional) where
     (¬) :: (Logic a) -> (Logic a)
     (¬) a = Logic (not (valor a))
 
-
+    infix 7 ^
+    (^) :: (Logic a) -> (Logic a) -> (Logic a)
+    (^) a b = Logic ((valor a) && (valor b))
 
     --infix 7 :>
-    --infix :^
+
     --infix :|
     --infix :<->:
