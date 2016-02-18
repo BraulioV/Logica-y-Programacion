@@ -92,3 +92,18 @@ module Formula (module Formula) where
                     | x == 'o'  = mostrar xs ('v':s)
                     | x == 'e'  = mostrar xs ('>':'-':'<':s)
                     | otherwise = mostrar xs (x:s)
+
+    obtenListaAtomicos :: Integral c => (Formula a b) -> [Char]
+    obtenListaAtomicos formula = atomicos
+        where
+            lista = enOrdenB' (arbol formula)
+            atomicos = getAtomicos lista [] ['(',')','n','c','k','o','e']
+                where
+                    getAtomicos :: [Char] -> [Char] -> [Char] -> [Char]
+                    getAtomicos [] atomos _              = atomos
+                    getAtomicos (x:xs) atomos operadores 
+                        | esOperador || estaEnAtomos  = getAtomicos xs atomos operadores
+                        | otherwise         = getAtomicos xs (x:atomos) operadores
+                            where
+                                esOperador = elem x operadores
+                                estaEnAtomos = elem x atomos

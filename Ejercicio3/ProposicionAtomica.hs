@@ -19,7 +19,7 @@ module ProposicionAtomica (module ProposicionAtomica) where
     infix 3 `k`
     infix 2 `o`
     infix 2 `c`
-    --infix 2 `e`
+    infix 2 `e`
 
     data Logic a = Logic {valor :: Int} deriving(Show, Eq, Ord)
 
@@ -116,3 +116,7 @@ module ProposicionAtomica (module ProposicionAtomica) where
     
     e :: Integral a => (Logic a) -> (Logic a) -> (Logic a)
     p `e` q = (p `c` q) `k` (q `c` p)
+
+
+    --- Las tablas de verdad se evaluan como tuplas de valores logic que se
+    --- van evaluando poco a poco e imprimiendo por pantalla los resultados
