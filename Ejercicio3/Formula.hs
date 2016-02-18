@@ -65,7 +65,9 @@ module Formula (module Formula) where
 
     obtenerForm :: ArbolB Char -> [Char]
     obtenerForm VacioB = []
-    obtenerForm (NodoB i r d) = (obtenerForm i) ++ [r] ++ obtenerForm d
+    obtenerForm (NodoB i r d) 
+        | r == 'n'  = [r] ++ (obtenerForm i)
+        | otherwise = (obtenerForm i) ++ [r] ++ obtenerForm d
 
     toString :: Formula a b -> String
     toString f = addPar (obtenerForm (arbol f)) (fst (listaInts f)) (snd (listaInts f)) ""
@@ -84,7 +86,7 @@ module Formula (module Formula) where
                 mostrar :: String -> String -> String
                 mostrar "" s = s
                 mostrar (x:xs) s
-                    | x == 'n'  = mostrar xs ('¬':s)
+                    | x == 'n'  = mostrar xs ('n':s)
                     | x == 'c'  = mostrar xs ('>':'-':s)
                     | x == 'k'  = mostrar xs ('^':s)
                     | x == 'o'  = mostrar xs ('v':s)
