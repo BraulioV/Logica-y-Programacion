@@ -30,10 +30,11 @@ module Formula (module Formula) where
     crear :: String -> Formula a b
     crear xs
         | (head xs) == '(' = Formula (crearCaso2 ps ((length ps) - 1)) par
-        | otherwise = Formula (crearCaso1 ps) par
+        | otherwise = Formula (crearCaso1 ps) par'
             where
                 ps  = eliminarEspacios (quitarParentesis xs)
                 par = ((elemIndices '(' (eliminarEspacios xs)), (elemIndices ')' (eliminarEspacios xs)))
+                par' = (drop 1 (scanl (+) 1 (elemIndices '(' (eliminarEspacios xs))), (elemIndices ')' (eliminarEspacios xs)))
     
     crearCaso2 :: String -> Int -> ArbolB Char
     crearCaso2 xs 0 = hojaB (head xs)
@@ -54,7 +55,7 @@ module Formula (module Formula) where
     addPar _ [] [] s         = s
     addPar y (l:ls) (k:ks) s = addPar w ls ks (s ++ w)
         where
-            w = (insertar l '(' (insertar k ')' y))
+            w = (insertar l '(' (insertar k ')' (y++[' '])))
 
     insertar :: Int -> Char -> String -> String
     insertar 0 y xs = y:xs
@@ -81,7 +82,7 @@ module Formula (module Formula) where
 
 
     instance Show a => Show (Formula a b) where
-        showsPrec _ f = shows (reverse' (mostrar (toString f) ""))
+        showsPrec _ f = shows (eliminarEspacios (reverse' (mostrar (toString f) "")))
             where 
                 mostrar :: String -> String -> String
                 mostrar "" s = s
