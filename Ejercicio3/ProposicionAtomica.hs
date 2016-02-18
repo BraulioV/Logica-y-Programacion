@@ -1,5 +1,8 @@
 module ProposicionAtomica (module ProposicionAtomica) where
 
+    class TiposConNormalizacion b where
+        norm :: b -> b
+
     {--------------------------------------------------------------------------
         ------------------
             OPERADORES
@@ -16,13 +19,14 @@ module ProposicionAtomica (module ProposicionAtomica) where
     infix 3 `k`
     infix 2 `o`
     infix 2 `c`
-    infix 2 `e`
+    --infix 2 `e`
 
-    data Logic a = Logic
-        {valor :: Bool
-        }      | Logic a `C` Logic a
+    data Logic a = Logic {valor :: Int} deriving(Show, Eq, Ord)
 
-        deriving (Show)
+    instance Integral a => TiposConNormalizacion (Logic a) where
+        norm (Logic a)
+            | a /= 0    = Logic 1
+            | otherwise = Logic 0
 
     {-
         * Negacion *
@@ -33,8 +37,11 @@ module ProposicionAtomica (module ProposicionAtomica) where
             Logic {valor = False}
     -}
     
-    n :: (Logic a) -> (Logic a)
-    n a = Logic (not (valor a))
+    n :: Integral a => (Logic a) -> (Logic a)
+    n a = Logic ((val + 1)`mod`2)
+        where
+            val = valor aux 
+            aux = (norm (a))
 
     {-
         * And lógico *
@@ -48,8 +55,8 @@ module ProposicionAtomica (module ProposicionAtomica) where
             Logic {valor = True}
     -}
     
-    k :: (Logic a) -> (Logic a) -> (Logic a)
-    p `k` q = Logic ((valor p) && (valor q))
+    k :: Integral a => (Logic a) -> (Logic a) -> (Logic a)
+    p `k` q = Logic ((valor (norm p)) * (valor (norm q)))
 
     {-
         * Or lógico *
@@ -65,8 +72,12 @@ module ProposicionAtomica (module ProposicionAtomica) where
             Logic {valor = False}
     -}
     
-    o :: (Logic a) -> (Logic a) -> (Logic a)
-    p `o` q = Logic ((valor p) || (valor q))
+    o :: Integral a => (Logic a) -> (Logic a) -> (Logic a)
+    p `o` q = norm (Logic (alpha*beta + alpha + beta))
+        where
+            alpha = valor (norm p)
+            beta = valor (norm q)
+
 
     {-
         * Implicación *
@@ -84,7 +95,7 @@ module ProposicionAtomica (module ProposicionAtomica) where
             Logic {valor = True}
     -}
     
-    c :: (Logic a) -> (Logic a) -> (Logic a)
+    c :: Integral a => (Logic a) -> (Logic a) -> (Logic a)
     p `c` q = (n p) `o` q
     
     {-
@@ -103,6 +114,5 @@ module ProposicionAtomica (module ProposicionAtomica) where
             Logic {valor = True}
     -}
     
-    e :: (Logic a) -> (Logic a) -> (Logic a)
+    e :: Integral a => (Logic a) -> (Logic a) -> (Logic a)
     p `e` q = (p `c` q) `k` (q `c` p)
-
