@@ -94,7 +94,7 @@ module Formula (module Formula) where
                     | x == 'e'  = mostrar xs ('>':'-':'<':s)
                     | otherwise = mostrar xs (x:s)
 
-    obtenListaAtomicos :: Integral c => (Formula a b) -> [Char]
+    obtenListaAtomicos :: (Formula a b) -> [Char]
     obtenListaAtomicos formula = atomicos
         where
             lista = enOrdenB' (arbol formula)
