@@ -1,4 +1,4 @@
-odule Congruencia (module Congruencia) where
+module Congruencia (module Congruencia) where
 
     {-
     Algoritmo extendido de euclides
