@@ -34,7 +34,7 @@ module Formula (module Formula) where
             where
                 ps  = eliminarEspacios (quitarParentesis xs)
                 par = ((elemIndices '(' (eliminarEspacios xs)), (elemIndices ')' (eliminarEspacios xs)))
-                par' = (drop 1 (scanl (+) 1 (elemIndices '(' (eliminarEspacios xs))), (elemIndices ')' (eliminarEspacios xs)))
+                par' = (map (\x -> x+1) (elemIndices '(' (eliminarEspacios xs)), (elemIndices ')' (eliminarEspacios xs)))
     
     crearCaso2 :: String -> Int -> ArbolB Char
     crearCaso2 xs 0 = hojaB (head xs)
@@ -51,11 +51,11 @@ module Formula (module Formula) where
         | (xs !! 0) == 'n' = NodoB (NodoB (hojaB (xs !! 1)) (xs !! 0) VacioB) (xs !! 2) (crearCaso1 (drop 3 xs))
         | otherwise        = NodoB (hojaB (xs !! 0)) (xs !! 1) (crearCaso1 (drop 2 xs))
 
-    addPar :: String -> [Int] -> [Int] -> String -> String
-    addPar _ [] [] s         = s
-    addPar y (l:ls) (k:ks) s = addPar w ls ks (s ++ w)
+    addPar :: String -> [Int] -> [Int] -> String
+    addPar w [] []         = w
+    addPar y (l:ls) (k:ks) = addPar w ls ks
         where
-            w = (insertar l '(' (insertar k ')' (y++[' '])))
+            w = (insertar l '(' (insertar k ')' (y++"       ")))
 
     insertar :: Int -> Char -> String -> String
     insertar 0 y xs = y:xs
@@ -71,7 +71,7 @@ module Formula (module Formula) where
         | otherwise = (obtenerForm i) ++ [r] ++ obtenerForm d
 
     toString :: Formula a b -> String
-    toString f = addPar (obtenerForm (arbol f)) (fst (listaInts f)) (snd (listaInts f)) ""
+    toString f = addPar (obtenerForm (arbol f)) (fst (listaInts f)) (snd (listaInts f))
 
     reverse' :: [a] -> [a]
     reverse' xs = reverseAux xs []
