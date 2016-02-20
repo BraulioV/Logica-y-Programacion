@@ -119,3 +119,13 @@ module Formula (module Formula) where
                     an :: ArbolB Char -> String
                     an VacioB = []
                     an (NodoB i r d) = (an i) ++ [r] ++ (an d)
+
+    tablaDeVerdad :: Formula a b -> ([String],[[Int]])
+    tablaDeVerdad f = (((obtenListaAtomicos f):(analizar f)), (booltable (obtenListaAtomicos f)))
+
+    evaluar :: ([String],[Int]) -> [Int]
+    evaluar (a,(b:bs))
+
+    booltable :: [Char] -> [[Int]]
+    booltable [] = [[]]
+    booltable (a:as) = [b : r | b <- [0,1], r <- booltable as]
