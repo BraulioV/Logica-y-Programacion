@@ -108,3 +108,10 @@ module Formula (module Formula) where
                             where
                                 esOperador = elem x operadores
                                 estaEnAtomos = elem x atomos
+
+    analizar :: Formula a b -> [[Char]]
+    analizar f = analizar_aux (arbol f) []
+        where
+            analizar_aux :: ArbolB Char -> [[Char]] -> [[Char]]
+            analizar_aux VacioB lista = lista
+            analizar_aux (NodoB i r d) lista = ((analizar d) ++ [r] ++ (analizar i))
