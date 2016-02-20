@@ -112,6 +112,10 @@ module Formula (module Formula) where
     analizar :: Formula a b -> [[Char]]
     analizar f = analizar_aux (arbol f) []
         where
-            analizar_aux :: ArbolB Char -> [[Char]] -> [[Char]]
+            analizar_aux :: ArbolB Char -> [String] -> [String]
             analizar_aux VacioB lista = lista
-            analizar_aux (NodoB i r d) lista = ((analizar d) ++ [r] ++ (analizar i))
+            analizar_aux (NodoB i r d) lista = (an d):((an i) ++ [r]):lista
+                where
+                    an :: ArbolB Char -> String
+                    an VacioB = []
+                    an (NodoB i r d) = (an i) ++ [r] ++ (an d)
