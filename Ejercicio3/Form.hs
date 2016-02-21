@@ -47,3 +47,15 @@ module Form (module Form) where
             v   = vars e
             b   = booltable v
             aux = asociar v b 0 []
+
+    interpret :: Expr -> [(Char, Int)] -> Int
+    interpret (Variable v)  vs = fromMaybe 0 (lookup v vs)
+    interpret (N      expr) vs = ((interpret expr vs)+1)`mod`2
+    interpret (K exp1 exp2) vs = (interpret exp1 vs) * (interpret exp2 vs)
+    interpret (O exp1 exp2) vs = ((interpret exp1 vs) * (interpret exp2 vs) 
+                                        + (interpret exp1 vs) + (interpret exp2 vs)) `mod` 2
+    interpret (C exp1 exp2) vs = interpret (O (N exp1) (exp2)) vs
+    interpret (E exp1 exp2) vs 
+        | (interpret exp1 vs) == (interpret exp2 vs) = 1
+        | otherwise                                  = 0
+
