@@ -41,16 +41,16 @@ module Form (module Form) where
     asociar [] _ r            = r
     asociar (v:vars) (b:bt) r = asociar vars bt ((v,b):r)
 
-    tabla_verdad :: Expr ->  [[Int]]
+    tabla_verdad :: Expr ->  [Int]
     tabla_verdad e = reverse (tabla_verdadAux e b [])
         where
             b = booltable (vars e)
-            tabla_verdadAux :: Expr -> [[Int]] -> [[Int]] -> [[Int]]
+            tabla_verdadAux :: Expr -> [[Int]] -> [Int] -> [Int]
             tabla_verdadAux _ [] r     = r
-            tabla_verdadAux e (b:bs) r = tabla_verdadAux e bs ((t_v e b):r)
+            tabla_verdadAux e (b:bs) r = tabla_verdadAux e bs ((t_v e b) ++ r)
                 where
                     t_v :: Expr -> [Int] -> [Int]
-                    t_v e b = b ++ [interpret e aux]
+                    t_v e b = [interpret e aux]
                         where 
                             aux = asociar (vars e) b []
  
@@ -65,3 +65,4 @@ module Form (module Form) where
         | (interpret exp1 vs) == (interpret exp2 vs) = 1
         | otherwise                                  = 0
 
+    --conjuntiva :: Expr -> Expr
