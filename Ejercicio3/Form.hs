@@ -76,7 +76,15 @@ module Form (module Form) where
     formaNormalNegada (C exp1 exp2)             = formaNormalNegada (O (N exp1) exp2)
     formaNormalNegada (N (C exp1 exp2))         = formaNormalNegada (K exp1 (N exp2))
     formaNormalNegada (E exp1 exp2)             = formaNormalNegada (O (K exp1 exp2) (K (N exp1) (N exp2)))
-    formaNormalNegada (E (C exp1 exp2))         = formaNormalNegada (K (O exp1 exp2) (O (N exp1) (N exp2)))
+    formaNormalNegada (N (E exp1 exp2))         = formaNormalNegada (K (O exp1 exp2) (O (N exp1) (N exp2)))
+
+    formaNormalDisyuntiva ::  Expr -> Expr
+    formaNormalDisyuntiva = fndAux . formaNormalNegada
+        where
+            fndAux :: Expr -> Expr
+            fndAux (K exp1 exp2) = (O (fndAux exp1) (fndAux exp2))
+            fndAux (O exp1 exp2) = (O (fndAux exp1) (fndAux exp2))
+            fndAux atomo         = atomo
 
     conjuntiva :: Expr -> Expr
     conjuntiva = toCNF . formaNormalNegada
