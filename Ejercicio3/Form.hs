@@ -65,4 +65,9 @@ module Form (module Form) where
         | (interpret exp1 vs) == (interpret exp2 vs) = 1
         | otherwise                                  = 0
 
-    --conjuntiva :: Expr -> Expr
+    -- saber si una formula es tautologia o no
+    es_tautologia :: Expr -> Bool
+    es_tautologia e = 
+        case foldl (*) 1 (tabla_verdad e) of
+            0         -> False
+            otherwise -> True
