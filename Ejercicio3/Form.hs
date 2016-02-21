@@ -78,6 +78,9 @@ module Form (module Form) where
     formaNormalNegada (E exp1 exp2)             = formaNormalNegada (O (K exp1 exp2) (K (N exp1) (N exp2)))
     formaNormalNegada (E (C exp1 exp2))         = formaNormalNegada (K (O exp1 exp2) (O (N exp1) (N exp2)))
 
-
-    --formaNormalDisyuntiva :: Expr -> Expr
-    --formaNormalDisyuntiva :: 
+    -- saber si una formula es tautologia o no
+    es_tautologia :: Expr -> Bool
+    es_tautologia e = 
+        case foldl (*) 1 (tabla_verdad e) of
+            0         -> False
+            otherwise -> True
