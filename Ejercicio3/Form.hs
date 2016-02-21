@@ -92,3 +92,10 @@ module Form (module Form) where
         case foldl (*) 1 (tabla_verdad e) of
             0         -> False
             otherwise -> True
+
+    -- saber si una formula es insatisfacctible o no
+    es_insatisfaccible :: Expr -> Bool
+    es_insatisfaccible e =
+        case foldl (+) 0 (tabla_verdad e) of
+            0         -> True
+            otherwise -> False    
