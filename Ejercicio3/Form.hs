@@ -38,8 +38,8 @@ module Form (module Form) where
     booltable (a:as) = [b:r | b <- [0,1], r <- booltable as]
 
     asociar :: [Char] -> [Int] -> [(Char, Int)] -> [(Char, Int)]
-    asociar [] _ r        = r
-    asociar (v:vars) bt r = asociar vars bt (r ++ map (\x -> (v, x)) bt)
+    asociar [] _ r            = r
+    asociar (v:vars) (b:bt) r = asociar vars bt ((v,b):r)
 
     --tabla_verdad :: Expr -> [[Int]]
     --tabla_verdad e = map (\x -> x ++ [(interpret e aux)]) b
@@ -49,17 +49,17 @@ module Form (module Form) where
     --        aux = asociar v b 0 []
 
     tabla_verdad :: Expr ->  [[Int]]
-    tabla_verdad e = tabla_verdadAux e b []
+    tabla_verdad e = reverse (tabla_verdadAux e b [])
         where
-            v = vars e
-            b = booltable v
+            b = booltable (vars e)
             tabla_verdadAux :: Expr -> [[Int]] -> [[Int]] -> [[Int]]
-            tabla_verdadAux e [] resultado = resultado
-            tabla_verdadAux e (b:bs) resultado = tabla_verdadAux e bs (resultado++eval)
-            --tabla_verdadAux e (b:bs) = map (\x -> [x,(interpret e aux)]) b
+            tabla_verdadAux _ [] r     = r
+            tabla_verdadAux e (b:bs) r = tabla_verdadAux e bs ((t_v e b):r)
                 where
-                    aux = asociar v b []
-                    eval = map (\x -> [x,(interpret e aux)]) b
+                    t_v :: Expr -> [Int] -> [Int]
+                    t_v e b = b ++ [interpret e aux]
+                        where 
+                            aux = asociar (vars e) b []
  
     interpret :: Expr -> [(Char, Int)] -> Int
     interpret (Variable v)  vs = fromMaybe 0 (lookup v vs)
