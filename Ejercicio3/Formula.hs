@@ -2,6 +2,7 @@ module Formula (module Formula) where
 
     import Arbol
     import Data.List
+    import ProposicionAtomica
 
     --data Formula a b = (ArbolB a, [b])
 
@@ -114,7 +115,7 @@ module Formula (module Formula) where
         where
             analizar_aux :: ArbolB Char -> [String] -> [String]
             analizar_aux VacioB lista = lista
-            analizar_aux (NodoB i r d) lista = (an d):((an i) ++ [r]):lista
+            analizar_aux (NodoB i r d) lista = (an i):[r]:(an d):lista
                 where
                     an :: ArbolB Char -> String
                     an VacioB = []
@@ -124,8 +125,9 @@ module Formula (module Formula) where
     tablaDeVerdad f = (((obtenListaAtomicos f):(analizar f)), (booltable (obtenListaAtomicos f)))
 
     evaluar :: ([String],[Int]) -> [Int]
-    evaluar (a,(b:bs))
+    evaluar (a,(b:bs)) 
 
+    -- obtenido de http://stackoverflow.com/questions/957642/generating-truth-tables-for-logic-expressions-in-haskell
     booltable :: [Char] -> [[Int]]
     booltable [] = [[]]
     booltable (a:as) = [b : r | b <- [0,1], r <- booltable as]
