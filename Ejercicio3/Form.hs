@@ -37,17 +37,27 @@ module Form (module Form) where
     booltable []     = [[]]
     booltable (a:as) = [b:r | b <- [0,1], r <- booltable as]
 
-    asociar :: [Char] -> [[Int]] -> Int -> [(Char, Int)] -> [(Char, Int)]
-    asociar [] _ _ r   = r
-    asociar (v:vars) bt n r = asociar vars bt (n+1) (r ++ map (\x -> (v, (x !! n))) bt)
+    asociar :: [Char] -> [Int] -> [(Char, Int)] -> [(Char, Int)]
+    asociar [] _ r        = r
+    asociar (v:vars) bt r = asociar vars bt (r ++ map (\x -> (v, x)) bt)
 
-    tabla_verdad :: Expr -> [[Int]]
-    tabla_verdad e = map (\x -> x ++ [(interpret e aux)]) b
+    --tabla_verdad :: Expr -> [[Int]]
+    --tabla_verdad e = map (\x -> x ++ [(interpret e aux)]) b
+    --    where
+    --        v   = vars e
+    --        b   = booltable v
+    --        aux = asociar v b 0 []
+
+    tabla_verdad :: Expr ->  [[Int]]
+    tabla_verdad e = tabla_verdadAux e b
         where
-            v   = vars e
-            b   = booltable v
-            aux = asociar v b 0 []
-
+            v = vars e
+            b = booltable v
+            tabla_verdadAux :: Expr -> [[Int]] -> [[Int]]
+            tabla_verdadAux e (b:bs) = map (\x -> [x,(interpret e aux)]) b
+                where
+                    aux = asociar v b []
+ 
     interpret :: Expr -> [(Char, Int)] -> Int
     interpret (Variable v)  vs = fromMaybe 0 (lookup v vs)
     interpret (N      expr) vs = ((interpret expr vs)+1)`mod`2
