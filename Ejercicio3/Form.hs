@@ -65,4 +65,19 @@ module Form (module Form) where
         | (interpret exp1 vs) == (interpret exp2 vs) = 1
         | otherwise                                  = 0
 
-    --conjuntiva :: Expr -> Expr
+    formaNormalNegada :: Expr -> Expr
+    formaNormalNegada atomo@(Variable _)        = atomo
+    formaNormalNegada atomo@(N (Variable _))    = atomo
+    formaNormalNegada (N (N atomo))             = atomo
+    formaNormalNegada (K exp1 exp2)             = (K (formaNormalNegada exp1) (formaNormalNegada exp2))
+    formaNormalNegada (N (K exp1 exp2))         = formaNormalNegada (O (N exp1) (N exp2))
+    formaNormalNegada (O exp1 exp2)             = (O (formaNormalNegada exp1) (formaNormalNegada exp2))
+    formaNormalNegada (N (O exp1 exp2))         = formaNormalNegada (K (N exp1) (N exp2))
+    formaNormalNegada (C exp1 exp2)             = formaNormalNegada (O (N exp1) exp2)
+    formaNormalNegada (N (C exp1 exp2))         = formaNormalNegada (K exp1 (N exp2))
+    formaNormalNegada (E exp1 exp2)             = formaNormalNegada (O (K exp1 exp2) (K (N exp1) (N exp2)))
+    formaNormalNegada (E (C exp1 exp2))         = formaNormalNegada (K (O exp1 exp2) (O (N exp1) (N exp2)))
+
+
+    --formaNormalDisyuntiva :: Expr -> Expr
+    --formaNormalDisyuntiva :: 
