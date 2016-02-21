@@ -78,6 +78,14 @@ module Form (module Form) where
     formaNormalNegada (E exp1 exp2)             = formaNormalNegada (O (K exp1 exp2) (K (N exp1) (N exp2)))
     formaNormalNegada (E (C exp1 exp2))         = formaNormalNegada (K (O exp1 exp2) (O (N exp1) (N exp2)))
 
+    conjuntiva :: Expr -> Expr
+    conjuntiva = toCNF . formaNormalNegada
+        where
+            toCNF :: Expr -> Expr
+            toCNF (K expr1 expr2) = K (toCNF expr1) (toCNF expr2)
+            toCNF (O expr1 expr2) = O (toCNF expr1) (toCNF expr2)
+            toCNF e               = e
+
     -- saber si una formula es tautologia o no
     es_tautologia :: Expr -> Bool
     es_tautologia e = 
