@@ -1,5 +1,8 @@
 module Form (module Form) where
 
+    import Data.List (nub)
+    import Data.Maybe (fromMaybe)
+
     data Expr = Variable Char
                 | N Expr        -- negacion
                 | C Expr Expr   -- implicacion
@@ -16,11 +19,31 @@ module Form (module Form) where
         show (O expr1 expr2) = show expr1 ++ 'v':show expr2
         show (E expr1 expr2) = show expr1 ++ '<':'-':'>':show expr2
 
-    leer :: String -> Expr
-    leer (x:xs)
-        | x == '!'  = N (leer xs)
-        | x == '&'  = K (leer xs)
-        | x == '>'  = C (leer xs)
-        | x == '<'  = E (leer xs)
-        | x == '|'  = O (leer xs)
-        | otherwise = leer xs
+    -- obtener todas las variables de una formula
+    variables :: Expr -> [Char]
+    variables (Variable name) = [name]
+    variables (N expr)        = variables expr
+    variables (C expr1 expr2) = variables expr1 ++ variables expr2
+    variables (K expr1 expr2) = variables expr1 ++ variables expr2
+    variables (O expr1 expr2) = variables expr1 ++ variables expr2
+    variables (E expr1 expr2) = variables expr1 ++ variables expr2
+
+    -- sin repetir  
+    vars :: Expr -> [Char]
+    vars = nub . variables
+
+    -- obtener toda la combinacion de 0 y 1 para las variables
+    booltable :: [Char] -> [[Int]]
+    booltable []     = [[]]
+    booltable (a:as) = [b:r | b <- [0,1], r <- booltable as]
+
+    asociar :: [Char] -> [[Int]] -> Int -> [(Char, Int)] -> [(Char, Int)]
+    asociar [] _ _ r   = r
+    asociar (v:vars) bt n r = asociar vars bt (n+1) (r ++ map (\x -> (v, (x !! n))) bt)
+
+    tabla_verdad :: Expr -> [[Int]]
+    tabla_verdad e = map (\x -> x ++ [(interpret e aux)]) b
+        where
+            v   = vars e
+            b   = booltable v
+            aux = asociar v b 0 []
