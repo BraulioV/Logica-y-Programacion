@@ -41,13 +41,6 @@ module Form (module Form) where
     asociar [] _ r            = r
     asociar (v:vars) (b:bt) r = asociar vars bt ((v,b):r)
 
-    --tabla_verdad :: Expr -> [[Int]]
-    --tabla_verdad e = map (\x -> x ++ [(interpret e aux)]) b
-    --    where
-    --        v   = vars e
-    --        b   = booltable v
-    --        aux = asociar v b 0 []
-
     tabla_verdad :: Expr ->  [[Int]]
     tabla_verdad e = reverse (tabla_verdadAux e b [])
         where
