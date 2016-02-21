@@ -82,9 +82,15 @@ module Form (module Form) where
     formaNormalDisyuntiva = fndAux . formaNormalNegada
         where
             fndAux :: Expr -> Expr
-            fndAux (K exp1 exp2) = (O (fndAux exp1) (fndAux exp2))
+            fndAux (K exp1 exp2) = (dist (fndAux exp1) (fndAux exp2))
             fndAux (O exp1 exp2) = (O (fndAux exp1) (fndAux exp2))
             fndAux atomo         = atomo
+
+            dist :: Expr -> Expr -> Expr
+            dist (O e11 e12) e2 = O (e11 `dist` e2) (e12 `dist` e2)
+            dist e1 (O e21 e22) = O (e1 `dist` e21) (e1 `dist` e22)
+            dist e1 e2                    = K e1 e2
+
 
     conjuntiva :: Expr -> Expr
     conjuntiva = toCNF . formaNormalNegada
