@@ -19,9 +19,9 @@ module SistemaCongruencias (module SistemaCongruencias) where
             where 
                 (d,s,_) = xeuclides a3 b3
 
-    --                         Sistema valor inf valor sup intervalo solucion
-    solve :: (Integral a) => (Sistema a) -> Int -> Int -> (Int, Int)
-    solve sistema lim_inf lim_sup = (li, lsup)
+    --                         Sistema valor inf valor sup intervalo solucion y congruencia solucion
+    solve :: (Integral a) => (Sistema a) -> Int -> Int -> (Int, Int, Congruencia a)
+    solve sistema lim_inf lim_sup = (li, lsup, k)
         where
             normalizado = normSistema sistema
             ec1         = ecuacion1 normalizado
